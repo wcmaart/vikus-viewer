@@ -657,7 +657,7 @@ function Canvas() {
 
     canvas.project = function () {
         sleep = false
-        if (state.mode == "tsne") {
+        if (state.mode == "similarity") {
             canvas.projectTSNE();
         } else {
             canvas.split();
