@@ -72,6 +72,13 @@ function init() {
 						canvas.addTsneData(tsne)
 					})
 				}
+				if (config.loader.grid) {
+					d3.csv(config.loader.grid, function(grid) {
+						console.log(grid);
+						d3.select(".navi").classed("hide", false);
+						canvas.addGridData(grid);
+					})
+				}
 
 				LoaderSprites()
 					.progress(function (textures) {
@@ -122,10 +129,10 @@ function init() {
 
 	d3.selectAll(".navi .button")
 		.on("click", function () {
-			var that = this
-			var mode = d3.select(this).text()
-			canvas.setMode(mode)
-			timeline.setDisabled(mode != "time")
+			var that = this;
+			var mode = d3.select(this).attr('data-mode');
+			canvas.setMode(mode);
+			timeline.setDisabled(mode != "time");
 
 			d3.selectAll(".navi .button").classed("active", function () {
 				return that === this

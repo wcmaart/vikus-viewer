@@ -102,6 +102,7 @@ function Canvas() {
     var timelineHover = false;
     var tsne = []
     var tsneIndex = {}
+    var gridIndex = {}
 
     function canvas() {}
 
@@ -319,8 +320,37 @@ function Canvas() {
                 y(d.y)
             ]
         })
-
+        console.log(tsneIndex["RC.15.16.A"]);
         console.timeEnd("tsne")
+    }
+
+    canvas.addGridData = function (d) {
+        console.time("grid")
+        var clean = d.map(function (d) {
+            return {
+                id: d.id,
+                x: parseInt(d.grid_x),
+                y: parseInt(d.grid_y)
+            }
+        })
+        var xExtent = d3.extent(clean, function (d) {
+            return d.x
+        })
+        var yExtent = d3.extent(clean, function (d) {
+            return d.y
+        })
+
+        var x = d3.scale.linear().range([0, 1]).domain(xExtent)
+        var y = d3.scale.linear().range([0, 1]).domain(yExtent)
+
+        d.forEach(function (d) {
+            gridIndex[d.id] = [
+                x(d.grid_x),
+                y(d.grid_y)
+            ]
+        })
+
+        console.timeEnd("grid");
     }
 
 
@@ -657,7 +687,7 @@ function Canvas() {
 
     canvas.project = function () {
         sleep = false
-        if (state.mode == "similarity") {
+        if (state.mode == "tsne" || state.mode == "grid") {
             canvas.projectTSNE();
         } else {
             canvas.split();
@@ -694,8 +724,8 @@ function Canvas() {
 
         active.forEach(function (d) {
 
-            var factor = height / 2;
-            var tsneEntry = tsneIndex[d.id]
+            var factor = height / 2; // factor is no longer used!
+            var tsneEntry = (state.mode == "tsne") ? tsneIndex[d.id] : gridIndex[d.id];
             if(tsneEntry) {
                 d.x = (tsneEntry[0] * dimension) + width / 2 - dimension / 2 + margin.left;
                 d.y = (tsneEntry[1] * dimension) - dimension / 2 + marginBottom;
