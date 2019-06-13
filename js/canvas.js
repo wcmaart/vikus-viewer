@@ -320,7 +320,6 @@ function Canvas() {
                 y(d.y)
             ]
         })
-        console.log(tsneIndex["RC.15.16.A"]);
         console.timeEnd("tsne")
     }
 
