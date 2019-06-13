@@ -11,7 +11,7 @@ function Timeline() {
         .clamp(true)
 
     var timelineScale = d3.scale.threshold()
-        .domain([3, 10, 20])
+        .domain([4.5, 10, 20]) // change none>small from 3
         .range(["none", "small", "middle", "large"])
 
     var timelineHover = false;
@@ -75,6 +75,10 @@ function Timeline() {
 
         enter.append("div")
             .classed("year", true)
+            .classed("decade", function(d){
+                // if timeline scale is none and key % 10 is 0 then true
+                return (d.key % 10 === 0)
+            })
             .text(function (d) {
                 return d.key;
             })
@@ -142,7 +146,7 @@ function Timeline() {
             .style("height", canvas.rangeBand() * scale + "px")
             .style("width", canvas.rangeBand() * scale + "px")
             .style("display", function (d) {
-                return d.visible ? "block" : "none";
+                return (d.visible && !((timelineScale(scale * (fontSize / 2)) === "none") && (d.key % 10 !== 0))) ? "block" : "none";
             })
 
         select
