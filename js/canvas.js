@@ -137,14 +137,22 @@ function Canvas() {
     canvas.makeScales = function () {
         x.rangeBands([margin.left, width + margin.left], 0.2)
 
+        // adjust columns denominator for different projections
+        var cols = columns;
+        if (state.mode == "grid") {
+            cols = 1.75;
+        } else if (state.mode == "tsne") {
+            cols = 2;
+        }
+
         rangeBand = x.rangeBand();
-        rangeBandImage = x.rangeBand() / columns;
+        rangeBandImage = x.rangeBand() / cols;
 
-        imgPadding = rangeBand / columns / 2;
+        imgPadding = rangeBand / cols / 2;
 
-        scale1 = imageSize / (x.rangeBand() / columns);
-        scale2 = imageSize2 / (x.rangeBand() / columns);
-        scale3 = imageSize3 / (x.rangeBand() / columns);
+        scale1 = imageSize / (x.rangeBand() / cols);
+        scale2 = imageSize2 / (x.rangeBand() / cols);
+        scale3 = imageSize3 / (x.rangeBand() / cols);
 
         stage3.scale.x = 1 / scale1;
         stage3.scale.y = 1 / scale1;
@@ -160,7 +168,7 @@ function Canvas() {
 
         timeline.rescale(scale1)
 
-        zoomedToImageScale = 0.8 / (x.rangeBand() / columns / width)
+        zoomedToImageScale = 0.8 / (x.rangeBand() / cols / width)
     }
 
     canvas.init = function (_data, _timeline, _config) {
@@ -686,6 +694,7 @@ function Canvas() {
 
     canvas.project = function () {
         sleep = false
+        canvas.makeScales();
         if (state.mode == "tsne" || state.mode == "grid") {
             canvas.projectTSNE();
         } else {
