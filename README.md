@@ -36,8 +36,8 @@ The `thumbs` folder can be huge (~1-6GB), so we do the same for that: put it in 
 
 ## Previewing builds
 
-The latest working (🤞) preview build will be in the `preview` branch:
-`https://github.com/wcmaart/vikus-viewer/tree/preview`
+The latest working (🤞) preview build will be in the `preview` branch:  
+<https://github.com/wcmaart/vikus-viewer/tree/preview>
 
 To run it, switch into the directory and run a localhost server. From the root of this repo, you can run [MAMP](https://www.mamp.info/en/) (php) or [sirv-cli](https://github.com/lukeed/sirv/tree/master/packages/sirv-cli) (node), or simply use the basic PHP development server: 
 ```bash
