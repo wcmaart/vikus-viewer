@@ -21,7 +21,7 @@ thumbs
 ```
 
 Because the data is so large, you may not see a `data` or a `thumbs` here. We've hidden them in `.gitignore`, and put `data` in another repo:  
-<https://github.com/wcmaart/vikus-viewer-data)>
+<https://github.com/wcmaart/vikus-viewer-data>
 
 Please either
 1. pull down `data` separately (manually download it from github) and put it inside this folder, or
