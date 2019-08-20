@@ -1,3 +1,67 @@
+# Williams College Museum of Art Collection Explorer (VIKUS Viewer)
+
+WCMA wants a way for faculty and staff to browse the 13300+ items in the collection, to find specific items and discover new ones that might be useful in their curricula. 
+
+For this Collection Explorer, we're extending [VIKUS Viewer](https://github.com/cpietsch/vikus-viewer), an open-source tool that uses [D3.js](https://d3js.org/), [PIXI.js](https://pixijs.com/), and a little bit of [Vue](https://vuejs.org/) to render sortable, filterable views of very large data collections.
+
+## Setup
+
+This is a fork of the original VIKUS Viewer repository (see the original README below). 
+
+The folder structure here should be
+```
+css
+data
+font
+img
+index.html
+js
+README.md
+thumbs
+```
+
+Because the data is so large, you may not see a `data` or a `thumbs` here. We've hidden them in `.gitignore`, and put `data` in another repo:  
+<https://github.com/wcmaart/vikus-viewer-data)>
+
+Please either
+1. pull down `data` separately (manually download it from github) and put it inside this folder, or
+2. _(✨preferred)_ set up a `vikus-viewer-data` repo _outside_ this `vikus-viewer` repo (in the same parent folder), and set up a symbolic link / alias at `vikus-viewer/data` to `vikus-viewer-data/data`, e.g. from the parent folder:  
+`ln -s ./vikus-viewer-data/data ./vikus-viewer/data`
+
+ℹ️ In the future, we'll look into setting this up as a git submodule so that it can be independently pulled down.
+
+The `thumbs` folder can be huge (~1-6GB), so we do the same for that: put it in a parent or sibling directory and symbolic link it inside this repository.  
+
+ℹ️ In the future, we may want to put this data into GitLFS? _Where does it live currently?_
+
+## Previewing builds
+
+The latest working (🤞) preview build will be in the `preview` branch:
+`https://github.com/wcmaart/vikus-viewer/tree/preview`
+
+To run it, switch into the directory and run a localhost server. From the root of this repo, you can run [MAMP](https://www.mamp.info/en/) (php) or [sirv-cli](https://github.com/lukeed/sirv/tree/master/packages/sirv-cli) (node), or simply use the basic PHP development server: 
+```bash
+php -S localhost:4444
+```
+
+## Progress and status
+
+_We will delete this section, or replace it with a new to-do list when complete._
+
+1. ~~get the branch working and document in the README.md how to set up (1 hr)~~
+2. reconcile the `tms_id` and get the color info in the `kibana.txt` (split into HSV) (2 hr)
+3. set it up so that chad can determine sort criteria in a config file (1 hr)
+4. reconcile the big json and the csv to see how they correspond, how they work (1 hr)
+5. stacklayout for grid view with proper filtering (1.5 hr)
+6. see if we can cluster items / have multiples of same item (2 hrs)
+   - _…look into d3 bubble chart (or circle-packing) code, then see if we can have multiple instances of the same artwork on the canvas_
+7. if not, then filter by second set of tags (3 hrs, 2 parts)
+   - do filtering (1.5 hr) 
+   - add another row or tab at top (1.5 hr)
+
+📚
+----
+
 ![VIKUS Viewer](https://vikusviewer.fh-potsdam.de/assets/teaser.png)
 
 # VIKUS Viewer
